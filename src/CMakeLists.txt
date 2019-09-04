@@ -26,16 +26,20 @@ INCLUDE_DIRECTORIES( SYSTEM  "${PROJECT_SOURCE_DIR}/include/tinyxml" )
 INCLUDE_DIRECTORIES( SYSTEM ${CLHEP_INCLUDE_DIRS} ) # needed for gearsurf only
 
 AUX_SOURCE_DIRECTORY( ./gearsurf libgearsurf_srcs )
-ADD_SHARED_LIBRARY( gearsurf ${libgearsurf_srcs} )
+#ADD_SHARED_LIBRARY( gearsurf ${libgearsurf_srcs} )
+ADD_LIBRARY(gearsurf SHARED ${libgearsurf_srcs})
 TARGET_LINK_LIBRARIES( gearsurf ${CLHEP_LIBRARIES} )
-INSTALL_SHARED_LIBRARY( gearsurf DESTINATION lib )
+#INSTALL_SHARED_LIBRARY( gearsurf DESTINATION lib )
+INSTALL( TARGETS gearsurf DESTINATION lib )
 # ----------------------------------------------------
 
 
 # -------- libgear (impl) ----------------------------
 AUX_SOURCE_DIRECTORY( ./gearimpl libgear_srcs )
-ADD_SHARED_LIBRARY( gear ${libgear_srcs} )
-INSTALL_SHARED_LIBRARY( gear DESTINATION lib )
+#ADD_SHARED_LIBRARY( gear ${libgear_srcs} )
+ADD_LIBRARY(gear SHARED ${libgear_srcs})
+#INSTALL_SHARED_LIBRARY( gear DESTINATION lib )
+INSTALL( TARGETS gear DESTINATION lib )
 TARGET_LINK_LIBRARIES( gear gearsurf )
 # ----------------------------------------------------
 
@@ -47,8 +51,10 @@ ENDIF()
 
 # -------- libgearxml --------------------------------
 AUX_SOURCE_DIRECTORY( ./gearxml libgearxml_srcs )
-ADD_SHARED_LIBRARY( gearxml ${libgearxml_srcs} )
-INSTALL_SHARED_LIBRARY( gearxml DESTINATION lib )
+#ADD_SHARED_LIBRARY( gearxml ${libgearxml_srcs} )
+ADD_LIBRARY( gearxml SHARED ${libgearxml_srcs} )
+#INSTALL_SHARED_LIBRARY( gearxml DESTINATION lib )
+INSTALL( TARGETS gearxml DESTINATION lib )
 TARGET_LINK_LIBRARIES( gearxml gear ${CMAKE_DL_LIBS} )
 
 

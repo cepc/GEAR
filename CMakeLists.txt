@@ -13,15 +13,16 @@ PROJECT( GEAR )
 SET( ${PROJECT_NAME}_VERSION_MAJOR 1 )
 SET( ${PROJECT_NAME}_VERSION_MINOR 8 )
 SET( ${PROJECT_NAME}_VERSION_PATCH 0 )
+set( ${PROJECT_NAME}_VERSION "${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_VERSION_MINOR}" )
 
 cmake_policy(SET CMP0008 NEW)
 
 ### DEPENDENCIES ############################################################
 
-FIND_PACKAGE( ILCUTIL COMPONENTS ILCSOFT_CMAKE_MODULES REQUIRED )
+#FIND_PACKAGE( ILCUTIL COMPONENTS ILCSOFT_CMAKE_MODULES REQUIRED )
 
 # load default settings from ILCSOFT_CMAKE_MODULES
-INCLUDE( ilcsoft_default_settings )
+#INCLUDE( ilcsoft_default_settings )
 
 
 # root is needed to build tgeo
@@ -57,21 +58,21 @@ ENDIF()
 
 ### DOCUMENTATION ###########################################################
 
-OPTION( INSTALL_DOC "Set to OFF to skip build/install Documentation" ON )
-
-IF( INSTALL_DOC )
-
-    FIND_PACKAGE( Doxygen )
-
-    IF( DOXYGEN_FOUND )
-        ADD_SUBDIRECTORY( ./doc )
-    ELSE()
-        MESSAGE( SEND_ERROR "Could not find doxygen required to build documentation" )
-        MESSAGE( "Please install doxygen or set INSTALL_DOC to OFF" )
-        MESSAGE( "" )
-    ENDIF()
-
-ENDIF()
+#OPTION( INSTALL_DOC "Set to OFF to skip build/install Documentation" ON )
+#
+#IF( INSTALL_DOC )
+#
+#    FIND_PACKAGE( Doxygen )
+#
+#    IF( DOXYGEN_FOUND )
+#        ADD_SUBDIRECTORY( ./doc )
+#    ELSE()
+#        MESSAGE( SEND_ERROR "Could not find doxygen required to build documentation" )
+#        MESSAGE( "Please install doxygen or set INSTALL_DOC to OFF" )
+#        MESSAGE( "" )
+#    ENDIF()
+#
+#ENDIF()
 
 
 
@@ -90,7 +91,8 @@ ADD_SUBDIRECTORY( ./src )
 
 
 # install include files
-INSTALL_DIRECTORY( ./include DESTINATION . FILES_MATCHING PATTERN "*.h" )
+#INSTALL_DIRECTORY( ./include DESTINATION . FILES_MATCHING PATTERN "*.h" )
+INSTALL( DIRECTORY ./include DESTINATION ${CMAKE_INSTALL_PREFIX} FILES_MATCHING PATTERN "*.h" )
 
 
 
@@ -112,18 +114,18 @@ ADD_CUSTOM_TARGET( uninstall_links
     COMMAND "${CMAKE_COMMAND}" -E remove "${CMAKE_INSTALL_PREFIX}/include/geartgeo"
 )
 
-ADD_DEPENDENCIES( uninstall uninstall_links )
+#ADD_DEPENDENCIES( uninstall uninstall_links )
 # ---------------------------------------------------------------------------
 
 
 
 # display some variables and write them to cache
-DISPLAY_STD_VARIABLES()
+#DISPLAY_STD_VARIABLES()
 
 MESSAGE( STATUS "GEAR_TGEO = ${GEAR_TGEO}" )
 MESSAGE( STATUS )
 
 
 # generate and install following configuration files
-GENERATE_PACKAGE_CONFIGURATION_FILES( GEARConfig.cmake GEARConfigVersion.cmake )
-
+#GENERATE_PACKAGE_CONFIGURATION_FILES( GEARConfig.cmake GEARConfigVersion.cmake )
+include(cmake/${PROJECT_NAME}CreateConfig.cmake)
