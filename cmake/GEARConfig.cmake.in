@@ -3,3 +3,9 @@ get_filename_component(GEAR_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 get_filename_component(GEAR_INCLUDE_DIRS "${GEAR_CMAKE_DIR}/include" ABSOLUTE)
 get_filename_component(GEAR_BINARY_DIR "${GEAR_CMAKE_DIR}/bin" ABSOLUTE)
 get_filename_component(GEAR_LIBRARY_DIR "${GEAR_CMAKE_DIR}/lib" ABSOLUTE)
+
+# Keep compatible with original GEAR
+set(GEAR_LIBRARIES)
+list(APPEND GEAR_LIBRARIES ${GEAR_LIBRARY_DIR}/libgearsurf.so)
+list(APPEND GEAR_LIBRARIES ${GEAR_LIBRARY_DIR}/libgear.so)
+list(APPEND GEAR_LIBRARIES ${GEAR_LIBRARY_DIR}/libgearxml.so)
